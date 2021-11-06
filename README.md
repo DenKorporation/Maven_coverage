@@ -101,7 +101,7 @@
     </build>
 ```
 
-Опять же в моём проектe SDK 16 поэтому указал 16 в этиъ строках
+Опять же в моём проектe SDK 16 поэтому указал 16 в этих строках
 ```xml
         <source>16</source>
         <target>16</target>
@@ -115,27 +115,18 @@
 В папке target/site/jacoco/ можно посмотреть отчёт о покрытии и, если были созданы тесты, должно показывать ненулевое покрытие
 
 # SonarCloud
+подключаем репозиторий к SonarCloud
 ## pom.xml
 добавить в properties
 ```xml
-        <!-- Sonar -->
-        <sonar.organization>universityteam</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
         <sonar.language>java</sonar.language>
 ```
-Эту строку нужно изменить под свой проект
-```xml
-        <sonar.organization>universityteam</sonar.organization>
-```
-
 
 ## .github/workflows/build.yml
-Далее подключаем репозиторий к SonarCloud
-
-были изменены строки, в отличие от дефолтного файла, создаваемого при подключении к SonarCloud
+были изменены строки(Опять же в моём проектe SDK 16 поэтому указал 16), в отличие от дефолтного файла, создаваемого при подключении к SonarCloud
 было
 ```yml
       - name: Set up JDK 11
