@@ -12,4 +12,11 @@ class SomeTest {
         obj.setNumber(5);
         assertEquals(25, obj.square());
     }
+
+    @Test
+    void triple() {
+        Some obj = new Some();
+        obj.setNumber(5);
+        assertEquals(15, obj.triple());
+    }
 }

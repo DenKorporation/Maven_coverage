@@ -10,4 +10,6 @@ public class Some {
     public int square(){
         return number * number;
     }
+
+    public int triple() {return 3 * number; }
 }
