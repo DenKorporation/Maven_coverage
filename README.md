@@ -17,7 +17,7 @@ https://github.com/DenKorparation/Maven_coverage/blob/master/pom.xml#L104-L105
 
 теперь можно проверить, запустив справа во вкладке maven lifecycle/test
 В консоли должно быть что-то такое
-![Иллюстрация к проекту](https://https://github.com/DenKorparation/Maven_coverage/test_result.png)
+![Иллюстрация к проекту](https://https://github.com/DenKorparation/blob/master/Maven_coverage/test_result.png)
 В папке target должен появиться jacoco.exec
 В папке target/site/jacoco/ можно посмотреть отчёт о покрытии и, если были созданы тесты, должно показывать ненулевое покрытие
 
