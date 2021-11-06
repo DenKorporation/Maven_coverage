@@ -13,13 +13,100 @@
 В моём проектe SDK 16 поэтому указал 16
 
 я указывал Junit5 при создании тестов, поэтому закидываем в dependencies вот это
-https://github.com/DenKorparation/Maven_coverage/blob/master/.github/workflows/build.yml#L19
+```xml
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.7</version>
+            <scope>test</scope>
+        </dependency>
+```
 
 ещё закидываем в pom.xml вот это
-https://github.com/DenKorparation/Maven_coverage/blob/master/pom.xml#L48-L109
+```xml
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <!-- JUnit 5 requires Surefire version 2.22.0 or higher -->
+                <version>3.0.0-M5</version>
+            </plugin>
 
-Опять же в моём проектe SDK 16 поэтому указал 16 в 
-https://github.com/DenKorparation/Maven_coverage/blob/master/pom.xml#L104-L105
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.7</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>PACKAGE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.0</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <debug>false</debug>
+                    <optimize>true</optimize>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+```
+
+Опять же в моём проектe SDK 16 поэтому указал 16
+```xml
+        <source>16</source>
+        <target>16</target>
+```
+
 
 теперь можно проверить, запустив справа во вкладке maven lifecycle/test
 В консоли должно быть что-то такое
@@ -30,15 +117,37 @@ https://github.com/DenKorparation/Maven_coverage/blob/master/pom.xml#L104-L105
 # SonarCloud
 ## pom.xml
 добавить в properties
-https://github.com/DenKorparation/Maven_coverage/blob/master/pom.xml#L17-L23
-Эту строку нужно изменить 
-https://github.com/DenKorparation/Maven_coverage/blob/master/pom.xml#L18
+```xml
+        <!-- Sonar -->
+        <sonar.organization>universityteam</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+        <sonar.language>java</sonar.language>
+```
+Эту строку нужно изменить под свой проект
+```xml
+        <sonar.organization>universityteam</sonar.organization>
+```
+
 
 ## .github/workflows/build.yml
 Далее подключаем репозиторий к SonarCloud
 
 были изменены строки, в отличие от дефолтного файла, создаваемого при подключении к SonarCloud
-https://github.com/DenKorparation/Maven_coverage/blob/master/.github/workflows/build.yml#L16
-https://github.com/DenKorparation/Maven_coverage/blob/master/.github/workflows/build.yml#L19
-
+было
+```yml
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+```
+стало
+```yml
+      - name: Set up JDK 16
+        uses: actions/setup-java@v1
+        with:
+          java-version: 16
+```
 
