@@ -3,7 +3,13 @@
 
 ## pom.xml
 в properties закидываем
-https://github.com/DenKorparation/Maven_coverage/blob/227c97dd82888319597ab70c4b35ad4826d48894/pom.xml#L13-L16
+```xml
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+```
+
 В моём проектe SDK 16 поэтому указал 16
 
 я указывал Junit5 при создании тестов, поэтому закидываем в dependencies вот это
